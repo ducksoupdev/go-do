@@ -35,3 +35,106 @@ func TestErrorHandler(t *testing.T) {
 		})
 	}
 }
+
+func TestStatusCodeTitle(t *testing.T) {
+	type args struct {
+		statusCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 200,
+			},
+			want: "OK",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 201,
+			},
+			want: "Created",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 204,
+			},
+			want: "No Content",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 400,
+			},
+			want: "Bad Request",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 401,
+			},
+			want: "Unauthorized",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 403,
+			},
+			want: "Forbidden",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 404,
+			},
+			want: "Not Found",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 405,
+			},
+			want: "Method Not Allowed",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 406,
+			},
+			want: "Not Acceptable",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 409,
+			},
+			want: "Conflict",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 415,
+			},
+			want: "Unsupported Media Type",
+		},
+		{
+			name: "Test status code title",
+			args: args{
+				statusCode: 500,
+			},
+			want: "Internal Server Error",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := StatusCodeTitle(tt.args.statusCode); got != tt.want {
+				t.Errorf("StatusCodeTitle() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
