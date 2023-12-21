@@ -25,7 +25,11 @@ func ErrorHandler(title string, statusCode int, message string) *Response {
 		Detail:     message,
 	})
 	if err != nil {
-		panic(err)
+		return &Response{
+			StatusCode: 500,
+			Headers:    Headers,
+			Body:       err.Error() + ", original error: " + message,
+		}
 	}
 	return &Response{
 		StatusCode: statusCode,
