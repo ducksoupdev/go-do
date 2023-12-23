@@ -26,7 +26,7 @@ There are structs, functions and methods for working with Digital Ocean Apps/Fun
 
 ### Headers struct
 
-The headers struct is used to set the headers for a JSON response. It has a predefined `ContentType: applicatiom/json` value.
+The `Headers` struct is used to set the headers for a JSON response. It has a predefined `ContentType: applicatiom/json` value.
 
 ```go
 func Main(in Request) (*functions.Response, error) {
@@ -42,7 +42,7 @@ func Main(in Request) (*functions.Response, error) {
 
 ### Response struct
 
-The response struct is used to return a response from a function. It has `StatusCode`, `Headers` and `Body` fields.
+The `Response` struct is used to return a response from a function. It has `StatusCode`, `Headers` and `Body` fields.
 
 ```go
 func Main(in Request) (*functions.Response, error) {
@@ -58,7 +58,7 @@ func Main(in Request) (*functions.Response, error) {
 
 ### Error response struct
 
-The error response struct is used to return an error response from a function. It has `Title`, `StatusCode` and `Detail` fields.
+The `ErrorResponse` struct is used to construct an error response in a function in conjunction with the `Response` struct. It has `Title`, `StatusCode` and `Detail` fields.
 
 ```go
 func Main(in Request) (*functions.Response, error) {
@@ -77,9 +77,20 @@ func Main(in Request) (*functions.Response, error) {
 }
 ```
 
+It produces the following JSON response:
+
+```json
+{
+  "title": "Bad Request",
+  "status": 400,
+  "detail": "No token provided"
+}
+```
+
 ### Error handler function
 
-The `ErrorHandler` function is used to return an error response from a function. It accepts `title`, `statusCode` and `message` arguments.
+The `ErrorHandler` function is used to return an error response from a function using the `ErrorResponse` and `Response` structs.
+It accepts `title`, `statusCode` and `message` arguments.
 
 ```go
 func Main(in Request) (*functions.Response, error) {
@@ -168,6 +179,20 @@ var statusCodes = map[int]string{
   508: "Loop Detected",
   510: "Not Extended",
   511: "Network Authentication Required",
+}
+```
+
+### Contains function
+
+The `Contains` function is used to check if a string is contained in a slice of strings. It accepts `slice` and `value` arguments.
+
+```go
+func Main(in Request) (*functions.Response, error) {
+  // do something
+
+  if functions.Contains([]string{"one", "two", "three"}, "two") {
+    // do something
+  }
 }
 ```
 
