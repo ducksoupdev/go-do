@@ -138,3 +138,47 @@ func TestStatusCodeTitle(t *testing.T) {
 		})
 	}
 }
+
+func TestContains(t *testing.T) {
+	type args struct {
+		s   []string
+		str string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Test contains",
+			args: args{
+				s:   []string{"a", "b", "c"},
+				str: "a",
+			},
+			want: true,
+		},
+		{
+			name: "Test contains",
+			args: args{
+				s:   []string{"a", "b", "c"},
+				str: "d",
+			},
+			want: false,
+		},
+		{
+			name: "Test contains",
+			args: args{
+				s:   []string{},
+				str: "a",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if Contains(tt.args.s, tt.args.str) != tt.want {
+				t.Errorf("Contains() = %v, want %v", Contains(tt.args.s, tt.args.str), tt.want)
+			}
+		})
+	}
+}
