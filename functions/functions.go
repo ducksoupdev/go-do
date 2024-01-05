@@ -118,3 +118,18 @@ func Contains(s []string, str string) bool {
 	}
 	return false
 }
+
+func ToStringArray(i interface{}) []string {
+	var result []string
+	switch v := i.(type) {
+	case []interface{}:
+		for _, value := range v {
+			result = append(result, value.(string))
+		}
+	case []string:
+		for _, value := range v {
+			result = append(result, value)
+		}
+	}
+	return result
+}

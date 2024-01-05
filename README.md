@@ -196,6 +196,18 @@ func Main(in Request) (*functions.Response, error) {
 }
 ```
 
+### ToStringArray function
+
+The `ToStringArray` function is used to convert an interface to a slice of strings. It accepts a single `interface{}` argument.
+
+```go
+func Main(in Request) (*functions.Response, error) {
+  // do something
+
+  stringArray := functions.ToStringArray(in.Headers["X-Forwarded-For"])
+}
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [`LICENSE`](LICENSE) file for details.

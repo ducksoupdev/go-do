@@ -182,3 +182,69 @@ func TestContains(t *testing.T) {
 		})
 	}
 }
+
+func TestToStringArray(t *testing.T) {
+	type args struct {
+		i interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		{
+			name: "Test to string array",
+			args: args{
+				i: []interface{}{"a", "b", "c"},
+			},
+			want: []string{"a", "b", "c"},
+		},
+		{
+			name: "Test to string array",
+			args: args{
+				i: []string{"a", "b", "c"},
+			},
+			want: []string{"a", "b", "c"},
+		},
+		{
+			name: "Test to string array",
+			args: args{
+				i: []interface{}{},
+			},
+			want: []string{},
+		},
+		{
+			name: "Test to string array",
+			args: args{
+				i: []string{},
+			},
+			want: []string{},
+		},
+		{
+			name: "Test to string array",
+			args: args{
+				i: nil,
+			},
+			want: []string{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ToStringArray(tt.args.i); !Equal(got, tt.want) {
+				t.Errorf("ToStringArray() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Equal(got []string, want []string) bool {
+	if len(got) != len(want) {
+		return false
+	}
+	for i := range got {
+		if got[i] != want[i] {
+			return false
+		}
+	}
+	return true
+}
